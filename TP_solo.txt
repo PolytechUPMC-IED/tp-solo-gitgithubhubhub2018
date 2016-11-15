@@ -1,0 +1,71 @@
+I. Préparation : 
+
+1. mkdir -p TP_solo EnvDev
+2. cd Env
+3. cd /home/sasl/shared/main3/env
+   cp link ~/EnvDev/
+4. cd EnvDev
+   git clone https://github.com/PolytechUPMC-IED/tp-solo-gitgithubhubhub2018.git
+----------------------------------------------------------
+
+II. Makefile : 
+
+cd tp-solo-gitgithubhubhub2018/
+cd id3v2-0.1.11/
+
+__________________________________________________________________
+ID3= /home/sasl/shared/main3/env/tools/include
+ID3V2= /home/sasl/shared/main3/env/tools/lib
+
+CC= g++
+CFLAGS= -Wall
+LDLIBS= -lid3 -lz
+
+OBJS= convert.o list.o id3v2.o genre.o
+CLIBS= convert.cpp list.cpp id3v2.cpp genre.cpp
+
+
+all : ${OBJS}
+
+%.o: %.cpp
+	${CC} -I ${ID3} -DVERSION="\"${VERSION}\"" -c -o $@ $<
+
+id3v2: ${OBJS} 
+	${CC} -L ${ID3V2} ${CFLAGS} -o $@ $^ ${LDLIBS} 
+
+clean: 
+	rm -f ${OBJS} id3v2
+___________________________________________________________________
+
+make 
+make clean
+___________________________________________________________________
+5. 
+ID3= /home/sasl/shared/main3/env/tools/include
+ID3V2= /home/sasl/shared/main3/env/tools/lib
+
+CC= g++
+CFLAGS= -Wall
+LDLIBS= -lid3 -lz
+
+OBJS= convert.o list.o id3v2.o genre.o
+CLIBS= convert.cpp list.cpp id3v2.cpp genre.cpp
+
+BINDIR= ~/TP_solo/bin
+
+all : ${OBJS} id3v2
+
+%.o: %.cpp
+	${CC} -I ${ID3} -DVERSION="\"${VERSION}\"" -c -o $@ $<
+
+id3v2: ${OBJS} 
+	${CC} -L ${ID3V2} ${CFLAGS} -o $@ $^ ${LDLIBS} 
+
+install:
+	mkdir -p ${BINDIR}
+	cp id3v2 ${BINDIR}
+clean: 
+	rm -f ${OBJS} id3v2
+_______________________________________________________________
+6.
+
